@@ -42,6 +42,11 @@ class EmojiLogic {
     }
   }
 
+  _toUnicodeArray (str) {
+    let arr = str.split('')
+    return arr.map(x => x.charCodeAt(0))
+  }
+
   init (input, pass, decode) {
     if (typeof pass === typeof '') {
       this._pass = crypto.createHmac('sha256', pass)
@@ -50,8 +55,7 @@ class EmojiLogic {
     if (typeof input === typeof '') {
       let array
       if (!decode) {
-        let buffer = Buffer.from(input)
-        array = Array.from(buffer)
+        array = this._toUnicodeArray(input)
       } else {
         array = input.split('|')
       }
